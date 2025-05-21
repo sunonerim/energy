@@ -1,3 +1,694 @@
-<!DOCTYPE html><html><head><title>EnergyParmplet</title><meta charset=utf-8><meta name=description content="A Quasar Project"><meta name=format-detection content="telephone=no"><meta name=msapplication-tap-highlight content=no><meta name=viewport content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"><link rel=icon type=image/png sizes=128x128 href=/energy/icons/favicon-128x128.png><link rel=icon type=image/png sizes=96x96 href=/energy/icons/favicon-96x96.png><link rel=icon type=image/png sizes=32x32 href=/energy/icons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/energy/icons/favicon-16x16.png><link rel=icon type=image/ico href=/energy/favicon.ico>  <script type="module" crossorigin src="/energy/assets/index-DSs61IOZ.js"></script>
-  <link rel="stylesheet" crossorigin href="/energy/assets/index-DW3tEu56.css">
-</head><body><div id=q-app></div></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EnergyParmplet</title>
+  
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <!-- 파비콘 유지 -->
+  <link rel="icon" type="image/png" sizes="128x128" href="/energy/icons/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/energy/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/energy/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/energy/icons/favicon-16x16.png">
+  <link rel="icon" type="image/ico" href="/energy/favicon.ico">
+  
+  <style>
+    .facility-card {
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+    .facility-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .gov-support-badge {
+      margin-right: 5px;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+    .support-details {
+      font-size: 0.85rem;
+      margin-top: 10px;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+    .card-header {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+    .budget-badge {
+      background-color: #28a745;
+    }
+    .rate-badge {
+      background-color: #007bff;
+    }
+    .term-badge {
+      background-color: #dc3545;
+    }
+    .page-header {
+      background-color: #0d6efd;
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      border-radius: 0 0 10px 10px;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #0d6efd;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    .back-to-top:hover {
+      background-color: #0b5ed7;
+    }
+  </style>
+</head>
+<body>
+  <!-- Back to top button -->
+  <a class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></a>
+  
+  <!-- Header with blue background -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="display-6">에너지 환경 설비 교체를 위한</h1>
+      <h1 class="display-5">2025-2026년 정부지원사업 안내</h1>
+      <p class="lead">교체/도입 지원가능 설비</p>
+    </div>
+  </div>
+  
+  <div class="container">
+    <!-- 시설 카드 목록 컨테이너 -->
+    <div class="row" id="facilityCardsContainer">
+      <!-- 카드들이 JavaScript로 여기에 추가됩니다 -->
+    </div>
+  </div>
+
+  <!-- Bootstrap footer card - converted from Quasar -->
+  <div class="container mt-5">
+    <div class="card mb-5 shadow-sm">
+      <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-0">네모파트너스그룹</h5>
+          <div>(주)네모아이씨지</div>
+        </div>
+        <div>
+          <img src="http://www.nemoicg.com/ko/image/common/logo_bottom.gif" alt="Nemo Logo">
+        </div>
+      </div>
+      <hr class="m-0">
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-md-3 text-md-end text-muted">부사장</div>
+          <div class="col-md-9"><strong>김선도</strong></div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-3 text-md-end text-muted">mobile</div>
+          <div class="col-md-9"><a href="tel:010-2245-6433" class="text-decoration-none"><strong>010-2245-6433</strong> <i class="bi bi-telephone"></i></a></div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-3 text-md-end text-muted">email</div>
+          <div class="col-md-9"><a href="mailto:sdkim@nemoicg.com" class="text-decoration-none"><strong>sdkim@nemoicg.com</strong> <i class="bi bi-envelope"></i></a></div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12 text-center text-muted">
+            <small>© 2023 네모파트너스그룹. 모든 권리 보유.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  
+  <script>
+    // Back to top button functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopButton = document.getElementById('backToTop');
+      
+      // Show button when user scrolls down
+      window.onscroll = function() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          backToTopButton.style.display = 'block';
+        } else {
+          backToTopButton.style.display = 'none';
+        }
+      };
+      
+      // Scroll to top when button is clicked
+      backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+
+<script lang="javascript">
+// DOM이 로드된 후 실행할 함수
+document.addEventListener('DOMContentLoaded', function() {
+  // facilityList를 이용해 카드 생성
+  renderFacilityCards();
+});
+
+// facilityList의 각 항목을 카드로 생성하는 함수
+function renderFacilityCards() {
+  const container = document.getElementById('facilityCardsContainer');
+  
+  facilityList.forEach(facility => {
+    // 카드 엘리먼트 생성
+    const cardCol = document.createElement('div');
+    cardCol.className = 'col-md-4';
+    
+    const card = document.createElement('div');
+    card.className = 'card facility-card';
+    card.id = `facility-${facility.id}`;
+    
+    // 카드 헤더 (시설명)
+    const cardHeader = document.createElement('div');
+    cardHeader.className = 'card-header';
+    cardHeader.textContent = `${facility.id}. ${facility.name}`;
+    
+    // 카드 바디 (지원 사업 정보)
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+    
+    // 지원 사업 뱃지들
+    const supportBadgesContainer = document.createElement('div');
+    supportBadgesContainer.className = 'mb-3';
+    
+    // 시설에 해당하는 정부 지원 사업 찾기
+    facility.govSupport.forEach(supportId => {
+      const support = govSupportList.find(item => item.id === supportId);
+      if (support) {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-primary gov-support-badge';
+        badge.textContent = `${support.program}`;
+        badge.setAttribute('data-support-id', supportId);
+        
+        // 뱃지 클릭 시 상세 정보 표시 이벤트
+        badge.addEventListener('click', function() {
+          showSupportDetails(this, support);
+        });
+        
+        supportBadgesContainer.appendChild(badge);
+      }
+    });
+    
+    // "정부지원사업 전부 보기" 버튼 추가
+    if (facility.govSupport.length > 0) {
+      const showAllButton = document.createElement('button');
+      showAllButton.className = 'btn btn-sm btn-outline-secondary mt-2';
+      showAllButton.textContent = `정부지원사업 전부 보기`;
+      showAllButton.setAttribute('data-facility-id', facility.id);
+      showAllButton.setAttribute('data-toggle-state', 'hidden');
+      
+      // 버튼 클릭 시 전체 지원 사업 토글 이벤트
+      showAllButton.addEventListener('click', function() {
+        toggleAllSupportDetails(this, facility);
+      });
+      
+      supportBadgesContainer.appendChild(document.createElement('div')); // 줄바꿈 용도
+      supportBadgesContainer.appendChild(showAllButton);
+    }
+    
+    // 상세 정보 컨테이너
+    const detailsContainer = document.createElement('div');
+    detailsContainer.className = 'support-details d-none';
+    detailsContainer.id = `support-details-${facility.id}`;
+    
+    // 요소들 조립
+    cardBody.appendChild(supportBadgesContainer);
+    cardBody.appendChild(detailsContainer);
+    
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    
+    cardCol.appendChild(card);
+    container.appendChild(cardCol);
+  });
+}
+
+// 지원 사업 상세 정보를 표시하는 함수
+function showSupportDetails(badge, support) {
+  const cardBody = badge.closest('.card-body');
+  const detailsContainer = cardBody.querySelector('.support-details');
+  
+  // 상세 정보 초기화 및 표시
+  detailsContainer.innerHTML = '';
+  detailsContainer.classList.remove('d-none');
+  
+  // 제목
+  const title = document.createElement('h5');
+  title.textContent = support.program;
+  
+  // 정보 리스트
+  const infoList = document.createElement('ul');
+  infoList.className = 'list-unstyled';
+  
+  // 지원 기관 정보
+  const orgItem = document.createElement('li');
+  orgItem.className = 'row mb-1';
+  orgItem.innerHTML = `<div class="col-3" style="color: #444444;">지원기관</div> <div class="col-9"><strong>${support.organization}</strong></div>`;
+  infoList.appendChild(orgItem);
+  
+  // 예산 정보
+  const budgetItem = document.createElement('li');
+  budgetItem.className = 'row mb-1';
+  budgetItem.innerHTML = `<div class="col-3" style="color: #444444;">예산</div> <div class="col-9"><strong>${support.budget}</strong></div>`;
+  infoList.appendChild(budgetItem);
+  
+  // 신청 기간
+  const termItem = document.createElement('li');
+  termItem.className = 'row mb-1';
+  termItem.innerHTML = `<div class="col-3" style="color: #444444;">신청기간</div> <div class="col-9"><strong>${support.term}</strong></div>`;
+  infoList.appendChild(termItem);
+  
+  // 지원 비율 (중소기업)
+  if (support.govRateForSMBiz) {
+    const rateSmItem = document.createElement('li');
+    rateSmItem.className = 'row mb-1';
+    rateSmItem.innerHTML = `<div class="col-3" style="color: #444444;">중소기업</div> <div class="col-9"><span class="badge bg-primary">${support.govRateForSMBiz}</span></div>`;
+    infoList.appendChild(rateSmItem);
+  }
+  
+  // 지원 비율 (중견기업)
+  if (support.govRateForCorp) {
+    const rateCorpItem = document.createElement('li');
+    rateCorpItem.className = 'row mb-1';
+    rateCorpItem.innerHTML = `<div class="col-3" style="color: #444444;">중견기업</div> <div class="col-9"><span class="badge bg-success">${support.govRateForCorp}</span></div>`;
+    infoList.appendChild(rateCorpItem);
+  }
+  
+  // 지원 내용
+  if (support.contents && support.contents.length > 0) {
+    const contentsItem = document.createElement('li');
+    contentsItem.className = 'mt-2';
+    
+    const contentsList = document.createElement('small');
+    contentsList.textContent = `지원내용: ${support.contents.join(', ')}`;
+    
+    contentsItem.appendChild(contentsList);
+    infoList.appendChild(contentsItem);
+  }
+  
+  detailsContainer.appendChild(title);
+  detailsContainer.appendChild(infoList);
+}
+
+// 시설에 해당하는 모든 정부 지원 사업 상세 정보를 토글하는 함수
+function toggleAllSupportDetails(button, facility) {
+  const cardBody = button.closest('.card-body');
+  const detailsContainer = cardBody.querySelector('.support-details');
+  const currentState = button.getAttribute('data-toggle-state');
+  
+  // 현재 상태에 따라 표시/숨김 처리
+  if (currentState === 'hidden') {
+    // 상세 정보 초기화 및 표시
+    detailsContainer.innerHTML = '';
+    detailsContainer.classList.remove('d-none');
+    button.setAttribute('data-toggle-state', 'shown');
+    button.textContent = '정부지원사업 접기';
+    
+    // 제목
+    const title = document.createElement('h5');
+    title.textContent = '전체 지원 사업 정보';
+    detailsContainer.appendChild(title);
+
+  // 모든 지원 사업 정보 표시
+  facility.govSupport.forEach(supportId => {
+    const support = govSupportList.find(item => item.id === supportId);
+    if (support) {
+      // 각 지원 사업 정보를 카드 형태로 표시
+      const supportCard = document.createElement('div');
+      supportCard.className = 'card mt-2 mb-2';
+      
+      const supportHeader = document.createElement('div');
+      supportHeader.className = 'card-header p-2';
+      supportHeader.innerHTML = `<strong>${support.program}</strong> <span class="badge bg-secondary">${support.organization}</span>`;
+      
+      const supportBody = document.createElement('div');
+      supportBody.className = 'card-body p-2';
+      
+      // 정보 리스트
+      const infoList = document.createElement('ul');
+      infoList.className = 'list-unstyled mb-0';
+      
+      // 지원 기관 정보
+      const orgItem = document.createElement('li');
+      orgItem.className = 'row mb-1';
+      orgItem.innerHTML = `<div class="col-3" style="color: #444444;">지원기관</div> <div class="col-9"><strong>${support.organization}</strong></div>`;
+      infoList.appendChild(orgItem);
+      
+      // 예산 정보
+      const budgetItem = document.createElement('li');
+      budgetItem.className = 'row mb-1';
+      budgetItem.innerHTML = `<div class="col-3" style="color: #444444;">예산</div> <div class="col-9"><strong>${support.budget}</strong></div>`;
+      infoList.appendChild(budgetItem);
+      
+      // 신청 기간
+      const termItem = document.createElement('li');
+      termItem.className = 'row mb-1';
+      termItem.innerHTML = `<div class="col-3" style="color: #444444;">신청기간</div> <div class="col-9"><strong>${support.term}</strong></div>`;
+      infoList.appendChild(termItem);
+      
+      // 지원 비율 (중소기업)
+      if (support.govRateForSMBiz) {
+        const rateSmItem = document.createElement('li');
+        rateSmItem.className = 'row mb-1';
+        rateSmItem.innerHTML = `<div class="col-3" style="color: #444444;">중소기업</div> <div class="col-9"><span class="badge bg-primary">${support.govRateForSMBiz}</span></div>`;
+        infoList.appendChild(rateSmItem);
+      }
+      
+      // 지원 비율 (중견기업)
+      if (support.govRateForCorp) {
+        const rateCorpItem = document.createElement('li');
+        rateCorpItem.className = 'row mb-1';
+        rateCorpItem.innerHTML = `<div class="col-3" style="color: #444444;">중견기업</div> <div class="col-9"><span class="badge bg-success">${support.govRateForCorp}</span></div>`;
+        infoList.appendChild(rateCorpItem);
+      }
+      
+      // 지원 내용
+      if (support.contents && support.contents.length > 0) {
+        const contentsItem = document.createElement('li');
+        contentsItem.className = 'mt-2';
+        
+        const contentsList = document.createElement('small');
+        contentsList.textContent = `지원내용: ${support.contents.join(', ')}`;
+        
+        contentsItem.appendChild(contentsList);
+        infoList.appendChild(contentsItem);
+      }
+      
+      supportBody.appendChild(infoList);
+      supportCard.appendChild(supportHeader);
+      supportCard.appendChild(supportBody);
+      
+      detailsContainer.appendChild(supportCard);
+    }
+  });
+  
+  // 지원 사업이 없는 경우 메시지 표시
+  if (facility.govSupport.length === 0) {
+    const noSupportMsg = document.createElement('p');
+    noSupportMsg.className = 'text-muted';
+    noSupportMsg.textContent = '이 시설에 대한 정부 지원 사업 정보가 없습니다.';
+    detailsContainer.appendChild(noSupportMsg);
+  }
+  } else {
+    // 정보 숨기기
+    detailsContainer.classList.add('d-none');
+    button.setAttribute('data-toggle-state', 'hidden');
+    button.textContent = `정부지원사업 전부 보기`;
+  }
+}
+
+const facilityList = [
+    {
+      id: 1,
+      name: '공기압축기(통합제어포함)',
+      govSupport: [ 2, 4,5,7,8,9,10],
+    },
+    {
+      id: 2,
+      name: '집진기/단열/창호',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 3,
+      name: '태양광(ESS 포함)',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 4,
+      name: '에너지관리시스템( 실시간 계측전송장치/센서/제어포함)',
+      govSupport: [1, 2, 7],
+    },
+    {
+      id: 5,
+      name: '블로워 스크러버',
+      govSupport: [ 2],
+    },
+    {
+      id: 6,
+      name: '오폐수정화/재이용시설',
+      govSupport: [2],
+    },
+    {
+      id: 7,
+      name: '전기료 (용해로)',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 8,
+      name: '냉난방기',
+      govSupport: [2,5,8,9],
+    },
+    {
+      id: 9,
+      name: '항온항습기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 10,
+      name: '히트펌프 시스템',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 11,
+      name: '냉동기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 12,
+      name: '폐열회수시설',
+      govSupport: [2,4,7,8,9],
+    },
+    {
+      id: 13,
+      name: '약품자동조절장치',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 14,
+      name: '탈수시설',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 15,
+      name: '환경안전시설',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 16,
+      name: '저장소 여과시설',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 17,
+      name: '악취저감 시설',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 18,
+      name: '열교환기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 19,
+      name: '탄소포집/저장설비',
+      govSupport: [ 2, 7,9],
+    },
+    {
+      id: 20,
+      name: '심상유도전동기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 21,
+      name: '인버터',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 22,
+      name: '건조설비',
+      govSupport: [1, 2, 3,],
+    },
+
+    {
+      id: 23,
+      name: '기화기 파쇄기, 선별기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 24,
+      name: '원심식 송풍기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 25,
+      name: '고효율 보일러/변압기',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 26,
+      name: '펌프/LED조명',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 27,
+      name: '상업용 전기냉장고',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 28,
+      name: '공조자동제어시스템',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 29,
+      name: '인버터 스크롤 칠러',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 30,
+      name: '인버터 냉장/냉동시스템',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 31,
+      name: '수열/공기열 히트펌프',
+      govSupport: [1, 2, 3,],
+    },
+    {
+      id: 32,
+      name: '유체커플링',
+      govSupport: [2,4,5],
+    }
+
+  ];
+
+
+//정부 지원 사업 목록
+const govSupportList = [
+  {
+    id: 1,
+    organization: '한국에너지공단',
+    budget : '100억 원',
+    program: '산업계 에너지관리 시스템 보급지원사업',
+    term: '1월,5월',
+    govRateForSMBiz: '70% (1억5천)',
+    govRateForCorp : '40% (1억5천)',
+    contents: ['에너지경역컨설팅', '에너지관리시스템', '실시간 전송장치']
+  },
+  {
+    id: 2,
+    organization: '한국환경공단',
+    budget : '800억 원',
+    program: '스마트생태공장 구축지원사업',
+    term: '12월',
+    govRateForSMBiz : '60%(10억)',
+    govRateForCorp  : '50%(10억)',
+    contents: ['에너지설비', '환경설비', '에너지관리시스템', '상기 3가지 필수']
+  },
+  {
+    id: 3,
+    organization: '한국에너지공단',
+    budget : '39억 원',
+    program: '에너지신산업 융합시스템 보급사업',
+    term: '2월',
+    govRateForSMBiz: '50% (15억)',
+    govRateForCorp : '60%~70억(15억)',
+    contents: [ '에너지관리시스템', '+ ESS']
+  },
+  {
+    id: 4,
+    organization: '한국에너지공단',
+    budget : '127억 원',
+    program: '배출권거래제 참여기업 온실가스 에너지 감축설비 지원사업',
+    term: '3월',
+    govRateForSMBiz: '70%(30억)',
+    govRateForCorp : '50%(30억)',
+    contents: ['연 25,000톤 이상 CO2 발생 사업장']
+  },
+  {
+    id: 5,
+    organization: '한국에너지공단',
+    budget : '80억 원',
+    program: '에너지 효율시장 조성시장',
+    term: '2월,7월',
+    govRateForSMBiz: '70% (3억)',
+    govRateForCorp : '40% (3억)',
+    contents: ['ESCO 사업자와 컨소시엄 필수']
+  },
+  {
+    id: 6,
+    organization: '한국에너지공단',
+    budget : '611억 원',
+    program: '건물 에너지관리 지원사업',
+    term: '4월',
+    govRateForSMBiz: '70%(2억)',
+    govRateForCorp : '70%(2억)',
+    contents: []
+  },
+  {
+    id: 7,
+    organization: '한국환경공단',
+    budget : '1079억 원',
+    program: '배출권거래제 할당 대상업체 탄소중립 설비 지원사업',
+    term: '12월,1월,4월',
+    govRateForSMBiz: '70%(60억)',
+    govRateForCorp : '50%(60억)',
+    contents: ['연 25,000톤 이상 CO2 발생 사업장']
+  },
+  {
+    id: 8,
+    organization: '중소벤처기업진흥공단',
+    budget : '130억 원',
+    program: '중소기업 탄소바우처사업',
+    term: '11월',
+    govRateForSMBiz: '40~85% (0.5억)',
+    govRateForCorp: '',
+    contents: []
+  },
+  {
+    id: 9,
+    organization: '중소벤처기업진흥공단',
+    budget : '97억 원',
+    program: '중소기업 탄소중립 설비투자 지원사업',
+    term: '2월',
+    govRateForSMBiz: '50%~70% (3억)',
+    govRateForCorp: '20%',
+    contents: ['기초 50%', '고도화 70%']
+  },
+  {
+    id: 10,
+    organization: '한국생산기술연구원',
+    budget : '42억 원',
+    program: '탄소중립선도플랜트 구축지원사업',
+    term: '2월',
+    govRateForSMBiz: '40%(30억)',
+    govRateForCorp : '40%(30억)',
+    contents: ['중견-중소 컨소시엄']
+  },
+];
+</script>
+</html>
